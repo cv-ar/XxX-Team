@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>XxX Team | Blood Strike</title>
+
+<style>
+
+/* =========================
+   GENERAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#050505;
+    color:white;
+    overflow-x:hidden;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+::-webkit-scrollbar{
+    width:6px;
+}
+
+::-webkit-scrollbar-track{
+    background:#050505;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#e50914;
+    border-radius:10px;
+}
+
+
+/* =========================
+   BACKGROUND
+========================= */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:
+    radial-gradient(circle at 20% 20%, rgba(229,9,20,.15), transparent 30%),
+    radial-gradient(circle at 80% 70%, rgba(229,9,20,.08), transparent 30%);
+    z-index:-1;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:75px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 4%;
+
+    background:rgba(5,5,5,.82);
+    backdrop-filter:blur(15px);
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    z-index:1000;
+}
+
+
+/* XxX TEAM */
+
+.logo{
+    display:flex;
+    align-items:center;
+
+    font-size:25px;
+    font-weight:900;
+
+    letter-spacing:2px;
+
+    white-space:nowrap;
+
+    transition:.3s;
+}
+
+.logo:hover{
+    transform:translateY(-1px);
+}
+
+.logo-text{
+    color:#fff;
+}
+
+.logo-text span{
+    color:#e50914;
+}
+
+
+/* =========================
+   NAV LINKS
+========================= */
+
+.nav-links{
+    display:flex;
+    gap:30px;
+    list-style:none;
+}
+
+.nav-links a{
+    font-size:14px;
+    font-weight:bold;
+    color:#aaa;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#fff;
+}
+
+.menu{
+    display:none;
+    font-size:28px;
+    cursor:pointer;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    padding:100px 20px 60px;
+
+    position:relative;
+    overflow:hidden;
+}
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+
+    width:650px;
+    height:650px;
+
+    background:#e50914;
+
+    opacity:.08;
+
+    border-radius:50%;
+
+    filter:blur(100px);
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+
+    max-width:900px;
+}
+
+.small-title{
+    color:#e50914;
+
+    font-weight:bold;
+
+    letter-spacing:5px;
+
+    font-size:13px;
+
+    margin-bottom:18px;
+}
+
+
+/* =========================
+   MAIN XxX
+========================= */
+
+.hero h1{
+    font-size:clamp(70px,13vw,160px);
+
+    font-weight:1000;
+
+    line-height:.85;
+
+    letter-spacing:-8px;
+
+    text-shadow:
+    0 0 30px rgba(229,9,20,.25);
+}
+
+
+/* X BLACK */
+
+.hero h1 .black-x{
+    color:#000;
+
+    -webkit-text-stroke:
+    2px rgba(255,255,255,.45);
+}
+
+
+/* x RED */
+
+.hero h1 .red-x{
+    color:#e50914;
+
+    -webkit-text-stroke:
+    1px #e50914;
+}
+
+
+/* =========================
+   HERO TEXT
+========================= */
+
+.hero h2{
+    margin-top:25px;
+
+    font-size:clamp(18px,3vw,30px);
+
+    letter-spacing:4px;
+
+    color:#ddd;
+}
+
+.hero p{
+    max-width:650px;
+
+    margin:20px auto 35px;
+
+    color:#888;
+
+    line-height:1.7;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.buttons{
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:14px 28px;
+
+    border:1px solid #e50914;
+
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+.btn-red{
+    background:#e50914;
+}
+
+.btn-red:hover{
+    background:#ff1824;
+
+    box-shadow:
+    0 0 25px rgba(229,9,20,.5);
+
+    transform:translateY(-3px);
+}
+
+.btn-dark{
+    background:#111;
+
+    border-color:#333;
+}
+
+.btn-dark:hover{
+    border-color:#e50914;
+
+    transform:translateY(-3px);
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+section{
+    padding:100px 7%;
+}
+
+.section-title{
+    margin-bottom:50px;
+}
+
+.section-title small{
+    color:#e50914;
+
+    letter-spacing:4px;
+
+    font-weight:bold;
+}
+
+.section-title h2{
+    font-size:45px;
+
+    margin-top:8px;
+}
+
+.section-title p{
+    color:#777;
+
+    margin-top:10px;
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:15px;
+}
+
+.stat{
+    background:#0d0d0d;
+
+    border:1px solid #1d1d1d;
+
+    padding:35px 20px;
+
+    text-align:center;
+
+    transition:.3s;
+}
+
+.stat:hover{
+    border-color:#e50914;
+
+    transform:translateY(-5px);
+}
+
+.stat h3{
+    font-size:40px;
+
+    color:#e50914;
+}
+
+.stat p{
+    color:#777;
+
+    margin-top:8px;
+
+    font-size:13px;
+}
+
+
+/* =========================
+   ROSTER
+========================= */
+
+.roster{
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:20px;
+}
+
+.player{
+    background:
+    linear-gradient(
+        145deg,
+        #111,
+        #080808
+    );
+
+    border:1px solid #202020;
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:.35s;
+}
+
+.player:hover{
+    transform:translateY(-8px);
+
+    border-color:#e50914;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.5);
+}
+
+.player-image{
+    height:280px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:
+    linear-gradient(
+        to top,
+        #080808,
+        transparent
+    ),
+    radial-gradient(
+        circle,
+        #3b0808,
+        #080808 65%
+    );
+
+    position:relative;
+}
+
+.player-image::after{
+    content:"XxX";
+
+    position:absolute;
+
+    font-size:90px;
+
+    font-weight:1000;
+
+    color:
+    rgba(255,255,255,.03);
+}
+
+
+/* PLAYER ICON */
+
+.player-icon{
+    width:110px;
+    height:110px;
+
+    border-radius:50%;
+
+    border:2px solid #e50914;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:35px;
+
+    font-weight:900;
+
+    color:#e50914;
+
+    box-shadow:
+    0 0 35px rgba(229,9,20,.25);
+
+    z-index:2;
+}
+
+.player-info{
+    padding:20px;
+}
+
+.player-label{
+    font-size:11px;
+
+    color:#e50914;
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+}
+
+.player-info h3{
+    font-size:21px;
+
+    margin-top:7px;
+
+    white-space:nowrap;
+}
+
+.player-info p{
+    color:#666;
+
+    font-size:13px;
+
+    margin-top:6px;
+}
+
+
+/* =========================
+   ACHIEVEMENTS
+========================= */
+
+.achievements{
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:20px;
+}
+
+.achievement{
+    padding:30px;
+
+    background:#0d0d0d;
+
+    border:1px solid #1d1d1d;
+
+    position:relative;
+}
+
+.achievement-number{
+    color:#e50914;
+
+    font-size:13px;
+
+    font-weight:bold;
+}
+
+.achievement h3{
+    margin:15px 0 8px;
+
+    font-size:22px;
+}
+
+.achievement p{
+    color:#777;
+
+    line-height:1.6;
+
+    font-size:14px;
+}
+
+
+/* =========================
+   ABOUT
+========================= */
+
+.about{
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:60px;
+
+    align-items:center;
+}
+
+.about-box{
+    border-left:
+    3px solid #e50914;
+
+    padding-left:30px;
+}
+
+.about h2{
+    font-size:45px;
+
+    margin-bottom:20px;
+}
+
+.about p{
+    color:#888;
+
+    line-height:1.9;
+}
+
+.quote{
+    font-size:30px;
+
+    font-weight:bold;
+
+    line-height:1.3;
+}
+
+.quote span{
+    color:#e50914;
+}
+
+
+/* =========================
+   JOIN
+========================= */
+
+.join{
+    text-align:center;
+
+    background:
+    linear-gradient(
+        rgba(229,9,20,.06),
+        rgba(229,9,20,.01)
+    );
+
+    border-top:1px solid #181818;
+
+    border-bottom:1px solid #181818;
+}
+
+.join h2{
+    font-size:50px;
+}
+
+.join p{
+    color:#777;
+
+    margin:15px auto 30px;
+
+    max-width:600px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    padding:40px 7%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    border-top:1px solid #151515;
+
+    color:#666;
+
+    font-size:13px;
+}
+
+.socials{
+    display:flex;
+
+    gap:20px;
+}
+
+.socials a:hover{
+    color:#e50914;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:900px){
+
+    .nav-links{
+        position:absolute;
+
+        top:75px;
+
+        right:0;
+
+        width:100%;
+
+        background:#080808;
+
+        flex-direction:column;
+
+        padding:25px;
+
+        text-align:center;
+
+        display:none;
+
+        border-bottom:1px solid #222;
+    }
+
+    .nav-links.active{
+        display:flex;
+    }
+
+    .menu{
+        display:block;
+    }
+
+    .stats{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .roster{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .achievements{
+        grid-template-columns:1fr;
+    }
+
+    .about{
+        grid-template-columns:1fr;
+    }
+}
+
+
+@media(max-width:550px){
+
+    nav{
+        padding:0 20px;
+    }
+
+    .logo{
+        font-size:22px;
+        letter-spacing:1px;
+    }
+
+    section{
+        padding:75px 20px;
+    }
+
+    .hero h1{
+        font-size:80px;
+
+        letter-spacing:-5px;
+    }
+
+    .stats{
+        grid-template-columns:
+        1fr 1fr;
+    }
+
+    .roster{
+        grid-template-columns:1fr;
+    }
+
+    .section-title h2{
+        font-size:35px;
+    }
+
+    .about h2{
+        font-size:35px;
+    }
+
+    .join h2{
+        font-size:35px;
+    }
+
+    .player-info h3{
+        font-size:19px;
+    }
+
+    footer{
+        flex-direction:column;
+
+        gap:20px;
+
+        text-align:center;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav>
+
+    <a href="#home" class="logo">
+
+        <div class="logo-text">
+            X<span>x</span>X Team
+        </div>
+
+    </a>
+
+
+    <ul class="nav-links" id="navLinks">
+
+        <li>
+            <a href="#home">HOME</a>
+        </li>
+
+        <li>
+            <a href="#roster">ROSTER</a>
+        </li>
+
+        <li>
+            <a href="#achievements">ACHIEVEMENTS</a>
+        </li>
+
+        <li>
+            <a href="#about">ABOUT</a>
+        </li>
+
+        <li>
+            <a href="#join">JOIN US</a>
+        </li>
+
+    </ul>
+
+
+    <div class="menu" onclick="toggleMenu()">
+        ☰
+    </div>
+
+</nav>
+
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<header class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="small-title">
+            BLOOD STRIKE ESPORTS
+        </div>
+
+
+        <h1>
+
+            <span class="black-x">
+                X
+            </span>
+
+            <span class="red-x">
+                x
+            </span>
+
+            <span class="black-x">
+                X
+            </span>
+
+        </h1>
+
+
+        <h2>
+            BUILT TO DOMINATE.
+        </h2>
+
+
+        <p>
+
+            Welcome to XxX Team — a competitive Blood Strike esports team
+            built for players who want to compete, improve and dominate.
+
+        </p>
+
+
+        <div class="buttons">
+
+            <a href="#roster" class="btn btn-red">
+                MEET THE TEAM
+            </a>
+
+            <a href="#join" class="btn btn-dark">
+                JOIN XxX
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================
+     STATS
+========================= -->
+
+<section>
+
+    <div class="section-title">
+
+        <small>
+            OUR NUMBERS
+        </small>
+
+        <h2>
+            XxX BY THE NUMBERS
+        </h2>
+
+        <p>
+            A team built around competition, teamwork and consistency.
+        </p>
+
+    </div>
+
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <h3>
+                05
+            </h3>
+
+            <p>
+                ACTIVE PLAYERS
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <h3>
+                1+
+            </h3>
+
+            <p>
+                TOURNAMENTS
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <h3>
+                0
+            </h3>
+
+            <p>
+                TROPHIES
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <h3>
+                5+
+            </h3>
+
+            <p>
+                FRIENDLIES
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     ROSTER
+========================= -->
+
+<section id="roster">
+
+    <div class="section-title">
+
+        <small>
+            THE SQUAD
+        </small>
+
+        <h2>
+            MEET THE ROSTER
+        </h2>
+
+        <p>
+            Five players. One team. One goal.
+        </p>
+
+    </div>
+
+
+    <div class="roster">
+
+
+        <!-- CAPTAIN -->
+
+        <div class="player">
+
+            <div class="player-image">
+
+                <div class="player-icon">
+                    CV
+                </div>
+
+            </div>
+
+
+            <div class="player-info">
+
+                <div class="player-label">
+                    PLAYER 01
+                </div>
+
+                <h3>
+                    XxX • CVaR
+                </h3>
+
+                <p>
+                    Team Captain
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PLAYER 02 -->
+
+        <div class="player">
+
+            <div class="player-image">
+
+                <div class="player-icon">
+                    AK
+                </div>
+
+            </div>
+
+
+            <div class="player-info">
+
+                <div class="player-label">
+                    PLAYER 02
+                </div>
+
+                <h3>
+                    XxX • Alkurdi15
+                </h3>
+
+                <p>
+                    XxX Team
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PLAYER 03 -->
+
+        <div class="player">
+
+            <div class="player-image">
+
+                <div class="player-icon">
+                    AM
+                </div>
+
+            </div>
+
+
+            <div class="player-info">
+
+                <div class="player-label">
+                    PLAYER 03
+                </div>
+
+                <h3>
+                    XxX • AM4
+                </h3>
+
+                <p>
+                    XxX Team
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PLAYER 04 -->
+
+        <div class="player">
+
+            <div class="player-image">
+
+                <div class="player-icon">
+                    SP
+                </div>
+
+            </div>
+
+
+            <div class="player-info">
+
+                <div class="player-label">
+                    PLAYER 04
+                </div>
+
+                <h3>
+                    XxX • Spinner7
+                </h3>
+
+                <p>
+                    XxX Team
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PLAYER 05 -->
+
+        <div class="player">
+
+            <div class="player-image">
+
+                <div class="player-icon">
+                    OM
+                </div>
+
+            </div>
+
+
+            <div class="player-info">
+
+                <div class="player-label">
+                    PLAYER 05
+                </div>
+
+                <h3>
+                    XxX • Only Me Left
+                </h3>
+
+                <p>
+                    XxX Team
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     ACHIEVEMENTS
+========================= -->
+
+<section id="achievements">
+
+    <div class="section-title">
+
+        <small>
+            OUR JOURNEY
+        </small>
+
+        <h2>
+            ACHIEVEMENTS
+        </h2>
+
+        <p>
+            The beginning of the XxX story.
+        </p>
+
+    </div>
+
+
+    <div class="achievements">
+
+
+        <div class="achievement">
+
+            <div class="achievement-number">
+                We here from [ 15 / 09 / 2026 ]
+            </div>
+
+            <h3>
+                XxX TEAM CREATED
+            </h3>
+
+            <p>
+              The Dream start from here and flow up to sky and we still fighting to be the champ !
+            </p>
+
+        </div>
+
+
+        <div class="achievement">
+
+            <div class="achievement-number">
+                First Tournament was [11/10/2026]
+            </div>
+
+            <h3>
+                Max Strikers League S1.5
+            </h3>
+
+            <p>
+                Our first step into the competitive scene
+            </p>
+
+        </div>
+
+
+        <div class="achievement">
+
+            <div class="achievement-number">
+                THE NEXT CHAPTER !
+            </div>
+
+            <h3>
+                RISE. COMPETE. CONQUER.
+            </h3>
+
+            <p>
+               Every match brings us closer.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section id="about">
+
+    <div class="about">
+
+
+        <div>
+
+            <div class="section-title">
+
+                <small>
+                    WHO WE ARE
+                </small>
+
+                <h2>
+                    MORE THAN<br>
+                    JUST A TEAM.
+                </h2>
+
+            </div>
+
+
+            <p>
+
+                XxX is a Blood Strike esports team focused on competitive
+                gameplay, teamwork and continuous improvement.
+                We believe that every match is an opportunity to become better.
+
+            </p>
+
+        </div>
+
+
+        <div class="about-box">
+
+            <div class="quote">
+
+                PLAY TO WIN  !<br>
+
+                <span>
+                   SMASH THE GAME
+                </span>
+
+                <br>
+
+                OWN THE MOMENT
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     JOIN
+========================= -->
+
+<section class="join" id="join">
+
+    <h2>
+        READY TO JOIN XxX?
+    </h2>
+
+
+    <p>
+
+        Think you have what it takes?
+        If you wants to join our team contact us in discord to make a test for you.
+
+    </p>
+
+
+    <div class="buttons">
+
+        <a href="https://discord.gg/NZEkrBVVG2" class="btn btn-dark">
+            DISCORD
+        </a>
+
+        <a href="https://www.youtube.com/@CVaR7" class="btn btn-red">
+            YOUTUBE
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div>
+        © 2026 XxX Team. All Rights Reserved.
+    </div>
+
+
+    <div class="socials">
+
+        <a href="https://discord.gg/NZEkrBVVG2">
+            Discord
+        </a>
+
+        <a href="#">
+            TikTok
+        </a>
+
+        <a href="https://www.youtube.com/@CVaR7">
+            YouTube
+        </a>
+
+    </div>
+
+</footer>
+
+
+
+<script>
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+function toggleMenu(){
+
+    const menu =
+    document.getElementById("navLinks");
+
+    menu.classList.toggle("active");
+
+}
+
+
+/* =========================
+   CLOSE MENU
+========================= */
+
+document
+.querySelectorAll(".nav-links a")
+.forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        document
+        .getElementById("navLinks")
+        .classList
+        .remove("active");
+
+    });
+
+});
+
+
+/* =========================
+   NAVBAR SCROLL
+========================= */
+
+window.addEventListener(
+    "scroll",
+    function(){
+
+        const nav =
+        document.querySelector("nav");
+
+        if(window.scrollY > 50){
+
+            nav.style.background =
+            "rgba(3,3,3,.96)";
+
+        }else{
+
+            nav.style.background =
+            "rgba(5,5,5,.82)";
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+</html>
