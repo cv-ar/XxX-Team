@@ -1,1464 +1,662 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>XxX Team | Blood Strike</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>XxX | كلان Blood Strike</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-
-/* =========================
-   GENERAL
-========================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    scroll-behavior:smooth;
+:root{
+  --bg:#0a0a0a;
+  --bg2:#141010;
+  --panel:#160f0e;
+  --red:#c81d25;
+  --red-bright:#e9212b;
+  --line:#2a1414;
+  --text:#f2eceb;
+  --muted:#8c7a79;
+  color-scheme: dark;
 }
-
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:var(--bg);color:var(--text);}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth;}
 body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#050505;
-    color:white;
-    overflow-x:hidden;
+  font-family:'Tajawal',sans-serif;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  overflow-x:hidden;
+  line-height:1.7;
 }
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:50;background:var(--bg);}
 
-a{
-    text-decoration:none;
-    color:inherit;
+.wrap{max-width:1040px;margin:0 auto;padding:0 28px;}
+
+/* ===== NAV ===== */
+nav{position:sticky;top:0;top:env(safe-area-inset-top,0px);z-index:40;
+  background:rgba(10,8,8,.85);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);transition:box-shadow .3s, background .3s;}
+nav.scrolled{background:rgba(8,6,6,.96);box-shadow:0 14px 34px -18px rgba(0,0,0,.7);}
+nav.scrolled .wrap{height:58px;}
+nav::before{content:"";position:absolute;inset:0 0 auto;height:2px;
+  background:linear-gradient(90deg, transparent, var(--red) 25%, var(--red-bright) 50%, var(--red) 75%, transparent);}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:18px;transition:height .3s;}
+.logo{display:flex;align-items:center;gap:9px;font-weight:900;font-size:22px;letter-spacing:1px;color:var(--text);flex:none;}
+.logo span{color:var(--red-bright);}
+.logo-text{white-space:nowrap;}
+.logo-divider{width:1px;height:17px;background:var(--line);flex:none;}
+.logo-sub{font-size:11.5px;font-weight:700;letter-spacing:3px;color:var(--muted);text-transform:uppercase;flex:none;}
+nav ul{list-style:none;display:flex;gap:34px;}
+nav li{position:relative;}
+nav a{position:relative;color:var(--muted);text-decoration:none;font-size:15px;font-weight:500;padding-bottom:3px;transition:color .2s;}
+nav a::after{content:"";position:absolute;right:0;bottom:-2px;width:100%;height:2px;background:var(--red-bright);transform:scaleX(0);transform-origin:right;transition:transform .25s;}
+nav a:hover{color:var(--text);}
+nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1);}
+.status-pill{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);padding:7px 14px;border:1px solid var(--line);border-radius:2px;flex:none;}
+.status-pill .dot{width:7px;height:7px;border-radius:50%;background:#35d87a;box-shadow:0 0 8px #35d87a;animation:pulse 2.2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+.nav-cta{position:relative;overflow:hidden;background:var(--red);color:#fff;padding:10px 24px;font-size:14px;font-weight:700;
+  clip-path:polygon(9px 0,100% 0,100% 100%,0 100%,0 9px);transition:background .2s, transform .2s;}
+.nav-cta:hover{color:#fff;background:var(--red-bright);transform:translateY(-1px);}
+
+.social-icons,.nav-social{display:flex;align-items:center;gap:14px;}
+.social-icons a,.nav-social a{color:var(--muted);display:flex;transition:color .2s, transform .2s;}
+.social-icons a:hover,.nav-social a:hover{color:var(--red-bright);transform:translateY(-2px);}
+.social-icons svg,.nav-social svg{width:20px;height:20px;fill:currentColor;}
+.sidebar .social-icons{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:20px 24px;border-top:1px solid var(--line);}
+.sidebar .social-icons a{flex-direction:column;gap:7px;padding:14px 6px;border:1px solid var(--line);border-radius:6px;font-size:10.5px;}
+.sidebar .social-icons a:hover{border-color:var(--red);transform:none;}
+.sidebar .social-icons svg{width:20px;height:20px;}
+footer .social-icons svg{width:18px;height:18px;}
+
+.burger{display:none;flex-direction:column;gap:5px;width:30px;height:30px;justify-content:center;align-items:flex-end;background:none;border:none;cursor:pointer;padding:0;}
+.burger span{display:block;width:100%;height:2px;background:var(--text);border-radius:2px;transition:transform .25s, opacity .2s;}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.burger.open span:nth-child(2){opacity:0;}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+.side-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:45;opacity:0;pointer-events:none;transition:opacity .25s;}
+.side-overlay.show{opacity:1;pointer-events:auto;}
+
+.sidebar{
+  position:fixed;top:0;bottom:0;right:0;width:80%;max-width:330px;z-index:46;
+  background:
+    repeating-linear-gradient(135deg, rgba(200,29,37,.04) 0 2px, transparent 2px 30px),
+    linear-gradient(180deg, var(--bg2), var(--bg) 75%);
+  border-left:1px solid var(--line);
+  box-shadow:-20px 0 50px -10px rgba(0,0,0,.6);
+  clip-path:polygon(22px 0,100% 0,100% 100%,0 100%,0 22px);
+  padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);
+  transform:translateX(100%);transition:transform .3s ease;
+  display:flex;flex-direction:column;
 }
+.sidebar.open{transform:translateX(0);}
+.sidebar-head{display:flex;flex-direction:column;gap:10px;padding:22px 24px 18px;border-bottom:1px solid var(--line);}
+.sidebar-head-top{display:flex;align-items:center;justify-content:space-between;}
+.sidebar-close{background:none;border:none;color:var(--text);font-size:24px;line-height:1;cursor:pointer;padding:4px;}
+.sidebar ul{list-style:none;display:flex;flex-direction:column;padding:6px 0;}
+.sidebar li{opacity:0;transform:translateX(14px);}
+.sidebar.open li{animation:sideIn .35s ease forwards;}
+.sidebar.open li:nth-child(1){animation-delay:.04s;}
+.sidebar.open li:nth-child(2){animation-delay:.09s;}
+.sidebar.open li:nth-child(3){animation-delay:.14s;}
+@keyframes sideIn{to{opacity:1;transform:translateX(0);}}
+.sidebar a{display:flex;align-items:center;gap:14px;padding:17px 24px;color:var(--text);text-decoration:none;
+  font-size:16px;font-weight:700;border-bottom:1px solid var(--line);position:relative;overflow:hidden;}
+.sidebar a::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg, rgba(200,29,37,.16), transparent);
+  transform:translateX(100%);transition:transform .25s;}
+.sidebar a:hover::before{transform:translateX(0);}
+.s-idx{font-family:ui-monospace,monospace;color:var(--red-bright);font-size:11.5px;font-weight:700;flex:none;}
+.s-label{flex:1;position:relative;}
+.s-chev{color:var(--muted);transition:transform .2s;flex:none;}
+.sidebar a:hover .s-chev{transform:translateX(-4px);color:var(--red-bright);}
+.sidebar .nav-cta{margin:22px 24px;text-align:center;clip-path:none;border-radius:3px;}
 
-::-webkit-scrollbar{
-    width:6px;
-}
-
-::-webkit-scrollbar-track{
-    background:#050505;
-}
-
-::-webkit-scrollbar-thumb{
-    background:#e50914;
-    border-radius:10px;
-}
-
-
-/* =========================
-   BACKGROUND
-========================= */
-
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    background:
-    radial-gradient(circle at 20% 20%, rgba(229,9,20,.15), transparent 30%),
-    radial-gradient(circle at 80% 70%, rgba(229,9,20,.08), transparent 30%);
-    z-index:-1;
-}
-
-
-/* =========================
-   NAVBAR
-========================= */
-
-nav{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:75px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:0 4%;
-
-    background:rgba(5,5,5,.82);
-    backdrop-filter:blur(15px);
-
-    border-bottom:1px solid rgba(255,255,255,.08);
-
-    z-index:1000;
-}
-
-
-/* XxX TEAM */
-
-.logo{
-    display:flex;
-    align-items:center;
-
-    font-size:25px;
-    font-weight:900;
-
-    letter-spacing:2px;
-
-    white-space:nowrap;
-
-    transition:.3s;
-}
-
-.logo:hover{
-    transform:translateY(-1px);
-}
-
-.logo-text{
-    color:#fff;
-}
-
-.logo-text span{
-    color:#e50914;
-}
-
-
-/* =========================
-   NAV LINKS
-========================= */
-
-.nav-links{
-    display:flex;
-    gap:30px;
-    list-style:none;
-}
-
-.nav-links a{
-    font-size:14px;
-    font-weight:bold;
-    color:#aaa;
-    transition:.3s;
-}
-
-.nav-links a:hover{
-    color:#fff;
-}
-
-.menu{
-    display:none;
-    font-size:28px;
-    cursor:pointer;
-}
-
-
-/* =========================
-   HERO
-========================= */
-
+/* ===== HERO ===== */
 .hero{
-    min-height:100vh;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    text-align:center;
-
-    padding:100px 20px 60px;
-
-    position:relative;
-    overflow:hidden;
+  position:relative;min-height:88vh;display:flex;align-items:center;
+  background:
+    linear-gradient(180deg,rgba(10,8,8,.2) 0%, var(--bg) 92%),
+    repeating-linear-gradient(135deg, rgba(200,29,37,.05) 0 2px, transparent 2px 34px),
+    radial-gradient(ellipse 900px 500px at 85% -10%, rgba(200,29,37,.35), transparent 60%),
+    var(--bg);
+  border-bottom:1px solid var(--line);
+  overflow:hidden;
 }
-
-.hero::before{
-    content:"";
-
-    position:absolute;
-
-    width:650px;
-    height:650px;
-
-    background:#e50914;
-
-    opacity:.08;
-
-    border-radius:50%;
-
-    filter:blur(100px);
+.hero::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(115deg, transparent 0%, transparent 54%, rgba(200,29,37,.16) 55.5%, transparent 57%, transparent 100%);
+  pointer-events:none;
 }
-
-.hero-content{
-    position:relative;
-    z-index:2;
-
-    max-width:900px;
-}
-
-.small-title{
-    color:#e50914;
-
-    font-weight:bold;
-
-    letter-spacing:5px;
-
-    font-size:13px;
-
-    margin-bottom:18px;
-}
-
-
-/* =========================
-   MAIN XxX
-========================= */
-
+.hero-inner{position:relative;z-index:2;padding:80px 0;text-align:center;display:flex;flex-direction:column;align-items:center;}
+@keyframes heroIn{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.hero-inner>*{opacity:0;animation:heroIn .7s cubic-bezier(.16,.8,.24,1) forwards;}
+.hero-inner .tag-line{animation-delay:.05s;}
+.hero-inner h1{animation-delay:.16s;}
+.hero-inner .sub{animation-delay:.32s;}
+.hero-inner .hero-actions{animation-delay:.46s;}
+.hero-inner .stat-strip{animation-delay:.58s;}
+.tag-line{color:var(--red-bright);font-weight:700;font-size:15px;margin-bottom:18px;}
 .hero h1{
-    font-size:clamp(70px,13vw,160px);
-
-    font-weight:1000;
-
-    line-height:.85;
-
-    letter-spacing:-8px;
-
-    text-shadow:
-    0 0 30px rgba(229,9,20,.25);
+  font-size:clamp(52px,11vw,108px);font-weight:900;line-height:.95;
+  letter-spacing:2px;color:#fff;
+  text-shadow:0 0 40px rgba(200,29,37,.35);
 }
-
-
-/* X BLACK */
-
-.hero h1 .black-x{
-    color:#000;
-
-    -webkit-text-stroke:
-    2px rgba(255,255,255,.45);
-}
-
-
-/* x RED */
-
-.hero h1 .red-x{
-    color:#e50914;
-
-    -webkit-text-stroke:
-    1px #e50914;
-}
-
-
-/* =========================
-   HERO TEXT
-========================= */
-
-.hero h2{
-    margin-top:25px;
-
-    font-size:clamp(18px,3vw,30px);
-
-    letter-spacing:4px;
-
-    color:#ddd;
-}
-
-.hero p{
-    max-width:650px;
-
-    margin:20px auto 35px;
-
-    color:#888;
-
-    line-height:1.7;
-}
-
-
-/* =========================
-   BUTTONS
-========================= */
-
-.buttons{
-    display:flex;
-
-    justify-content:center;
-
-    gap:15px;
-
-    flex-wrap:wrap;
-}
-
-.btn{
-    padding:14px 28px;
-
-    border:1px solid #e50914;
-
-    font-weight:bold;
-
-    transition:.3s;
-}
-
-.btn-red{
-    background:#e50914;
-}
-
-.btn-red:hover{
-    background:#ff1824;
-
-    box-shadow:
-    0 0 25px rgba(229,9,20,.5);
-
-    transform:translateY(-3px);
-}
-
-.btn-dark{
-    background:#111;
-
-    border-color:#333;
-}
-
-.btn-dark:hover{
-    border-color:#e50914;
-
-    transform:translateY(-3px);
-}
-
-
-/* =========================
-   SECTION
-========================= */
-
-section{
-    padding:100px 7%;
-}
-
-.section-title{
-    margin-bottom:50px;
-}
-
-.section-title small{
-    color:#e50914;
-
-    letter-spacing:4px;
-
-    font-weight:bold;
-}
-
-.section-title h2{
-    font-size:45px;
-
-    margin-top:8px;
-}
-
-.section-title p{
-    color:#777;
-
-    margin-top:10px;
-}
-
-
-/* =========================
-   STATS
-========================= */
-
-.stats{
-    display:grid;
-
-    grid-template-columns:
-    repeat(4,1fr);
-
-    gap:15px;
-}
-
-.stat{
-    background:#0d0d0d;
-
-    border:1px solid #1d1d1d;
-
-    padding:35px 20px;
-
-    text-align:center;
-
-    transition:.3s;
-}
-
-.stat:hover{
-    border-color:#e50914;
-
-    transform:translateY(-5px);
-}
-
-.stat h3{
-    font-size:40px;
-
-    color:#e50914;
-}
-
-.stat p{
-    color:#777;
-
-    margin-top:8px;
-
-    font-size:13px;
-}
-
-
-/* =========================
-   ROSTER
-========================= */
-
-.roster{
-    display:grid;
-
-    grid-template-columns:
-    repeat(4,1fr);
-
-    gap:20px;
-}
-
-.player{
-    background:
-    linear-gradient(
-        145deg,
-        #111,
-        #080808
-    );
-
-    border:1px solid #202020;
-
-    position:relative;
-
-    overflow:hidden;
-
-    transition:.35s;
-}
-
-.player:hover{
-    transform:translateY(-8px);
-
-    border-color:#e50914;
-
-    box-shadow:
-    0 15px 40px rgba(0,0,0,.5);
-}
-
-.player-image{
-    height:280px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    background:
-    linear-gradient(
-        to top,
-        #080808,
-        transparent
-    ),
-    radial-gradient(
-        circle,
-        #3b0808,
-        #080808 65%
-    );
-
-    position:relative;
-}
-
-.player-image::after{
-    content:"XxX";
-
-    position:absolute;
-
-    font-size:90px;
-
-    font-weight:1000;
-
-    color:
-    rgba(255,255,255,.03);
-}
-
-
-/* PLAYER ICON */
-
-.player-icon{
-    width:110px;
-    height:110px;
-
-    border-radius:50%;
-
-    border:2px solid #e50914;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    font-size:35px;
-
-    font-weight:900;
-
-    color:#e50914;
-
-    box-shadow:
-    0 0 35px rgba(229,9,20,.25);
-
-    z-index:2;
-}
-
-.player-info{
-    padding:20px;
-}
-
-.player-label{
-    font-size:11px;
-
-    color:#e50914;
-
-    font-weight:bold;
-
-    letter-spacing:2px;
-}
-
-.player-info h3{
-    font-size:21px;
-
-    margin-top:7px;
-
-    white-space:nowrap;
-}
-
-.player-info p{
-    color:#666;
-
-    font-size:13px;
-
-    margin-top:6px;
-}
-
-
-/* =========================
-   ACHIEVEMENTS
-========================= */
-
-.achievements{
-    display:grid;
-
-    grid-template-columns:
-    repeat(3,1fr);
-
-    gap:20px;
-}
-
-.achievement{
-    padding:30px;
-
-    background:#0d0d0d;
-
-    border:1px solid #1d1d1d;
-
-    position:relative;
-}
-
-.achievement-number{
-    color:#e50914;
-
-    font-size:13px;
-
-    font-weight:bold;
-}
-
-.achievement h3{
-    margin:15px 0 8px;
-
-    font-size:22px;
-}
-
-.achievement p{
-    color:#777;
-
-    line-height:1.6;
-
-    font-size:14px;
-}
-
-
-/* =========================
-   ABOUT
-========================= */
-
-.about{
-    display:grid;
-
-    grid-template-columns:
-    1fr 1fr;
-
-    gap:60px;
-
-    align-items:center;
-}
-
-.about-box{
-    border-left:
-    3px solid #e50914;
-
-    padding-left:30px;
-}
-
-.about h2{
-    font-size:45px;
-
-    margin-bottom:20px;
-}
-
-.about p{
-    color:#888;
-
-    line-height:1.9;
-}
-
-.quote{
-    font-size:30px;
-
-    font-weight:bold;
-
-    line-height:1.3;
-}
-
-.quote span{
-    color:#e50914;
-}
-
-
-/* =========================
-   JOIN
-========================= */
-
+.hero h1 .x{color:#fff;}
+.hero p.sub{max-width:560px;margin:22px auto 0;font-size:18px;color:#c9b9b8;font-weight:500;}
+.hero-actions{display:flex;gap:16px;margin-top:38px;flex-wrap:wrap;justify-content:center;}
+.btn{display:inline-block;position:relative;overflow:hidden;padding:14px 30px;border-radius:3px;font-weight:700;font-size:15px;text-decoration:none;transition:transform .2s cubic-bezier(.16,.8,.24,1), box-shadow .2s;}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);transform:scale(0);animation:rippleAnim .6s ease-out;pointer-events:none;}
+@keyframes rippleAnim{to{transform:scale(2.8);opacity:0;}}
+.btn-primary{background:var(--red);color:#fff;box-shadow:0 8px 24px -8px rgba(200,29,37,.6);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px -8px rgba(233,33,43,.7);}
+.btn-ghost{border:1px solid var(--line);color:var(--text);}
+.btn-ghost:hover{border-color:var(--red);}
+
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);margin-top:64px;border:1px solid var(--line);border-radius:4px;overflow:hidden;max-width:620px;width:100%;}
+.stat-strip>div{background:var(--bg);padding:20px 16px;}
+.stat-strip .n{font-size:28px;font-weight:900;color:#fff;}
+.stat-strip .l{font-size:12.5px;color:var(--muted);margin-top:4px;}
+
+/* ===== SECTION BASE ===== */
+section{padding:90px 0;border-bottom:1px solid var(--line);}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,.8,.24,1), transform .7s cubic-bezier(.16,.8,.24,1);}
+.reveal.in{opacity:1;transform:none;}
+.eyebrow{color:var(--red-bright);font-weight:700;font-size:14px;margin-bottom:12px;}
+h2{font-size:clamp(30px,5vw,42px);font-weight:900;color:#fff;max-width:620px;line-height:1.25;}
+.lede{max-width:560px;color:var(--muted);font-size:16px;margin-top:16px;}
+
+/* ===== ABOUT ===== */
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;margin-top:50px;align-items:start;}
+.pillars{display:flex;flex-direction:column;gap:0;}
+.pillar{padding:22px 0;border-top:1px solid var(--line);}
+.pillar:last-child{border-bottom:1px solid var(--line);}
+.pillar h3{font-size:17px;font-weight:700;color:#fff;margin-bottom:6px;}
+.pillar p{color:var(--muted);font-size:14.5px;}
+
+/* ===== ROSTER ===== */
+.roster{display:flex;flex-direction:column;gap:10px;margin-top:40px;}
+.r-row{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:16px;
+  padding:16px 18px;background:var(--panel);border:1px solid var(--line);border-radius:6px;transition:border-color .2s;text-decoration:none;color:inherit;}
+.r-row:hover{border-color:var(--red);}
+.r-row.head{background:transparent;border:none;padding:0 18px;color:var(--muted);font-size:12.5px;font-weight:700;}
+.roster .r-more{display:flex;align-items:center;justify-content:center;gap:10px;color:var(--red-bright);font-weight:700;font-size:14.5px;cursor:pointer;white-space:nowrap;}
+.r-more .s-chev{color:var(--red-bright);transition:transform .2s;}
+.r-more:hover .s-chev{transform:translateX(-4px);}
+.r-rank{width:34px;height:34px;border-radius:50%;background:rgba(200,29,37,.12);border:1px solid var(--red);
+  color:var(--red-bright);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;}
+.r-main{min-width:0;}
+.r-name{font-weight:700;color:#fff;font-size:16px;}
+.r-role{color:var(--muted);font-size:13px;margin-top:2px;}
+.r-kd{font-weight:900;color:#fff;font-size:15px;}
+
+/* ===== JOIN ===== */
 .join{
-    text-align:center;
-
-    background:
-    linear-gradient(
-        rgba(229,9,20,.06),
-        rgba(229,9,20,.01)
-    );
-
-    border-top:1px solid #181818;
-
-    border-bottom:1px solid #181818;
+  background:linear-gradient(135deg, rgba(200,29,37,.18), transparent 60%), var(--bg2);
+  text-align:center;
 }
+.join h2{margin:0 auto;}
+.join .lede{margin-left:auto;margin-right:auto;}
+.join .btn{margin-top:30px;}
+.join-steps{display:flex;justify-content:center;gap:40px;margin-top:60px;flex-wrap:wrap;}
+.join-steps div{max-width:200px;}
+.join-steps .num{font-size:34px;font-weight:900;color:var(--red-bright);margin-bottom:8px;}
+.join-steps p{font-size:14px;color:var(--muted);}
 
-.join h2{
-    font-size:50px;
+/* ===== FOOTER ===== */
+footer{padding:34px 0;}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
+footer .f-logo{font-weight:900;color:#fff;}
+footer .f-logo span{color:var(--red-bright);}
+footer .social-icons{gap:20px;}
+footer a{color:var(--muted);text-decoration:none;font-size:14px;}
+footer a:hover{color:var(--text);}
+
+
+/* ===== PLAYER PROFILE POPUP ===== */
+.r-row.player-card{cursor:pointer;user-select:none}
+.r-row.player-card:focus-visible{outline:2px solid var(--red-bright);outline-offset:3px}
+.player-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.78);backdrop-filter:blur(7px);opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s}
+.player-modal.show{opacity:1;visibility:visible}
+.player-modal-box{position:relative;width:min(100%,390px);padding:25px 22px 22px;background:linear-gradient(160deg,#1c1010,#0b0b0b 75%);border:1px solid var(--red);border-radius:12px;box-shadow:0 18px 70px rgba(0,0,0,.65),0 0 28px rgba(200,29,37,.12);transform:translateY(12px) scale(.98);transition:transform .22s}
+.player-modal.show .player-modal-box{transform:translateY(0) scale(1)}
+.player-modal-close{position:absolute;top:10px;left:12px;width:34px;height:34px;border:1px solid var(--line);border-radius:50%;background:#160f0e;color:#fff;font-size:23px;line-height:1;cursor:pointer}
+.player-modal-kicker{text-align:center;color:var(--red-bright);font-size:11px;font-weight:900;letter-spacing:3px;margin:2px 0 18px}
+.player-avatar{width:88px;height:88px;margin:0 auto 12px;overflow:hidden;border:2px solid var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 25%,#442020,#160d0d 70%);color:#fff;font-size:28px;font-weight:900;box-shadow:0 0 24px rgba(200,29,37,.16)}
+.player-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.player-modal-name{text-align:center;color:#fff;font-size:22px;font-weight:900;overflow-wrap:anywhere}
+.player-modal-role{text-align:center;color:var(--red-bright);font-size:13px;margin-top:3px}
+.player-modal-info{margin-top:22px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.player-modal-info div{display:flex;justify-content:space-between;gap:14px;padding:11px 13px;background:rgba(255,255,255,.015);font-size:13px}
+.player-modal-info div+div{border-top:1px solid var(--line)}
+.player-modal-info span:first-child{color:var(--muted)}
+.player-modal-info span:last-child{color:var(--text);font-weight:700;text-align:left}
+.player-modal-hint{text-align:center;color:var(--muted);font-size:11px;margin-top:14px}
+body.modal-open{overflow:hidden}
+@media(max-width:420px){.player-modal-box{padding:23px 17px 18px}.player-modal-name{font-size:20px}}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:760px){
+  nav ul{display:none;}
+  nav .nav-cta{display:none;}
+  .nav-social{display:none;}
+  nav .status-pill{display:none;}
+  .burger{display:flex;}
+  .hero{min-height:auto;align-items:flex-start;}
+  .hero::after{display:none;}
+  .hero-inner{padding:38px 0 50px;}
+  .hero h1{font-size:clamp(44px,16vw,64px);}
+  .about-grid{grid-template-columns:1fr;gap:34px;}
+  .stat-strip{grid-template-columns:repeat(2,1fr);margin-top:44px;}
+  .r-row{grid-template-columns:40px 1fr auto;padding:14px;gap:12px;}
+  .r-kd{font-size:14px;}
+  section{padding:64px 0;}
 }
-
-.join p{
-    color:#777;
-
-    margin:15px auto 30px;
-
-    max-width:600px;
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-    padding:40px 7%;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    border-top:1px solid #151515;
-
-    color:#666;
-
-    font-size:13px;
-}
-
-.socials{
-    display:flex;
-
-    gap:20px;
-}
-
-.socials a:hover{
-    color:#e50914;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:900px){
-
-    .nav-links{
-        position:absolute;
-
-        top:75px;
-
-        right:0;
-
-        width:100%;
-
-        background:#080808;
-
-        flex-direction:column;
-
-        padding:25px;
-
-        text-align:center;
-
-        display:none;
-
-        border-bottom:1px solid #222;
-    }
-
-    .nav-links.active{
-        display:flex;
-    }
-
-    .menu{
-        display:block;
-    }
-
-    .stats{
-        grid-template-columns:
-        repeat(2,1fr);
-    }
-
-    .roster{
-        grid-template-columns:
-        repeat(2,1fr);
-    }
-
-    .achievements{
-        grid-template-columns:1fr;
-    }
-
-    .about{
-        grid-template-columns:1fr;
-    }
-}
-
-
-@media(max-width:550px){
-
-    nav{
-        padding:0 20px;
-    }
-
-    .logo{
-        font-size:22px;
-        letter-spacing:1px;
-    }
-
-    section{
-        padding:75px 20px;
-    }
-
-    .hero h1{
-        font-size:80px;
-
-        letter-spacing:-5px;
-    }
-
-    .stats{
-        grid-template-columns:
-        1fr 1fr;
-    }
-
-    .roster{
-        grid-template-columns:1fr;
-    }
-
-    .section-title h2{
-        font-size:35px;
-    }
-
-    .about h2{
-        font-size:35px;
-    }
-
-    .join h2{
-        font-size:35px;
-    }
-
-    .player-info h3{
-        font-size:19px;
-    }
-
-    footer{
-        flex-direction:column;
-
-        gap:20px;
-
-        text-align:center;
-    }
-}
-
+:focus-visible{outline:2px solid var(--red-bright);outline-offset:3px;}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important;}.sidebar li{opacity:1;transform:none;}.hero-inner>*{opacity:1;}.reveal{opacity:1;transform:none;}}
 </style>
 </head>
-
-
 <body>
 
-
-<!-- =========================
-     NAVBAR
-========================= -->
-
 <nav>
-
-    <a href="#home" class="logo">
-
-        <div class="logo-text">
-            X<span>x</span>X Team
-        </div>
-
-    </a>
-
-
-    <ul class="nav-links" id="navLinks">
-
-        <li>
-            <a href="#home">HOME</a>
-        </li>
-
-        <li>
-            <a href="#roster">ROSTER</a>
-        </li>
-
-        <li>
-            <a href="#achievements">ACHIEVEMENTS</a>
-        </li>
-
-        <li>
-            <a href="#about">ABOUT</a>
-        </li>
-
-        <li>
-            <a href="#join">JOIN US</a>
-        </li>
-
+  <div class="wrap">
+    <div class="logo"><span class="logo-sub">Clan</span><span class="logo-divider"></span><span class="logo-text">Xx<span>X</span></span></div>
+    <ul>
+      <li><a href="#about">من نحن</a></li>
+      <li><a href="#roster">الأعضاء</a></li>
+      <li><a href="#join">انضم إلينا</a></li>
     </ul>
-
-
-    <div class="menu" onclick="toggleMenu()">
-        ☰
+    <span class="logo-divider"></span>
+    <div class="nav-social" id="navSocial">
+      <a href="#" aria-label="Discord"><svg viewBox="0 0 24 24"><path d="M20.3 4.4A19 19 0 0 0 15.7 3l-.3.6a14 14 0 0 1 4 1.7 16 16 0 0 0-13.8 0A14 14 0 0 1 9.6 3l-.3-.6a19 19 0 0 0-4.6 1.4C2 8.7 1.3 12.9 1.6 17a19 19 0 0 0 5.7 2.9l.9-1.5a12 12 0 0 1-1.9-.9l.5-.4a13.5 13.5 0 0 0 11.4 0l.5.4a12 12 0 0 1-1.9.9l.9 1.5A19 19 0 0 0 22.4 17c.4-4.8-.8-9-2.1-12.6ZM8.7 14.3c-.8 0-1.5-.8-1.5-1.7 0-1 .7-1.7 1.5-1.7.9 0 1.6.8 1.5 1.7 0 .9-.6 1.7-1.5 1.7Zm6.6 0c-.8 0-1.5-.8-1.5-1.7 0-1 .7-1.7 1.5-1.7.9 0 1.6.8 1.5 1.7 0 .9-.6 1.7-1.5 1.7Z"/></svg></a>
+      <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23 12s0-3.6-.5-5.3a2.9 2.9 0 0 0-2-2C18.9 4.2 12 4.2 12 4.2s-6.9 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.4 1 12 1 12s0 3.6.5 5.3a2.9 2.9 0 0 0 2 2c1.6.5 8.5.5 8.5.5s6.9 0 8.5-.5a2.9 2.9 0 0 0 2-2c.5-1.7.5-5.3.5-5.3ZM9.8 15.5V8.5l6 3.5-6 3.5Z"/></svg></a>
+      <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.6 3h-3.2v12.4a2.6 2.6 0 1 1-2.1-2.6V9.5a5.9 5.9 0 1 0 5.3 5.9V9.8a7.9 7.9 0 0 0 4.4 1.3V8a4.7 4.7 0 0 1-4.4-5Z"/></svg></a>
     </div>
-
+    <span class="logo-divider"></span>
+    <div class="status-pill"><span class="dot"></span>+180 متصل</div>
+    <a class="nav-cta" href="#join">انضم الآن</a>
+    <button class="burger" id="burger" aria-label="فتح القائمة" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
-
-
-<!-- =========================
-     HERO
-========================= -->
-
-<header class="hero" id="home">
-
-    <div class="hero-content">
-
-        <div class="small-title">
-            BLOOD STRIKE ESPORTS
-        </div>
-
-
-        <h1>
-
-            <span class="black-x">
-                X
-            </span>
-
-            <span class="red-x">
-                x
-            </span>
-
-            <span class="black-x">
-                X
-            </span>
-
-        </h1>
-
-
-        <h2>
-            BUILT TO DOMINATE.
-        </h2>
-
-
-        <p>
-
-            Welcome to XxX Team — a competitive Blood Strike esports team
-            built for players who want to compete, improve and dominate.
-
-        </p>
-
-
-        <div class="buttons">
-
-            <a href="#roster" class="btn btn-red">
-                MEET THE TEAM
-            </a>
-
-            <a href="#join" class="btn btn-dark">
-                JOIN XxX
-            </a>
-
-        </div>
-
+<div class="side-overlay" id="sideOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-head">
+    <div class="sidebar-head-top">
+      <div class="logo"><span class="logo-sub">Clan</span><span class="logo-divider"></span><span class="logo-text">Xx<span>X</span></span></div>
+      <button class="sidebar-close" id="sidebarClose" aria-label="إغلاق القائمة">×</button>
     </div>
+    <div class="status-pill"><span class="dot"></span>نـحـن مـن يـصـنـع الـمـجـد</div>
+  </div>
+  <ul>
+    <li><a href="#about"><span class="s-idx">01</span><span class="s-label">من نحن</span><span class="s-chev">‹</span></a></li>
+    <li><a href="#roster"><span class="s-idx">02</span><span class="s-label">الأعضاء</span><span class="s-chev">‹</span></a></li>
+    <li><a href="#join"><span class="s-idx">03</span><span class="s-label">انضم إلينا</span><span class="s-chev">‹</span></a></li>
+  </ul>
+  <div class="social-icons">
+    <a href="https://discord.gg/F6nJGFBsV6" aria-label="Discord"><svg viewBox="0 0 24 24"><path d="M20.3 4.4A19 19 0 0 0 15.7 3l-.3.6a14 14 0 0 1 4 1.7 16 16 0 0 0-13.8 0A14 14 0 0 1 9.6 3l-.3-.6a19 19 0 0 0-4.6 1.4C2 8.7 1.3 12.9 1.6 17a19 19 0 0 0 5.7 2.9l.9-1.5a12 12 0 0 1-1.9-.9l.5-.4a13.5 13.5 0 0 0 11.4 0l.5.4a12 12 0 0 1-1.9.9l.9 1.5A19 19 0 0 0 22.4 17c.4-4.8-.8-9-2.1-12.6ZM8.7 14.3c-.8 0-1.5-.8-1.5-1.7 0-1 .7-1.7 1.5-1.7.9 0 1.6.8 1.5 1.7 0 .9-.6 1.7-1.5 1.7Zm6.6 0c-.8 0-1.5-.8-1.5-1.7 0-1 .7-1.7 1.5-1.7.9 0 1.6.8 1.5 1.7 0 .9-.6 1.7-1.5 1.7Z"/></svg><span class="soc-label">Discord</span></a>
+    <a href="https://www.youtube.com/@CVaR2" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23 12s0-3.6-.5-5.3a2.9 2.9 0 0 0-2-2C18.9 4.2 12 4.2 12 4.2s-6.9 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.4 1 12 1 12s0 3.6.5 5.3a2.9 2.9 0 0 0 2 2c1.6.5 8.5.5 8.5.5s6.9 0 8.5-.5a2.9 2.9 0 0 0 2-2c.5-1.7.5-5.3.5-5.3ZM9.8 15.5V8.5l6 3.5-6 3.5Z"/></svg><span class="soc-label">YouTube</span></a>
+    <a href="https://www.tiktok.com/@47864hh?_r=1&_t=ZS-9Ad9rRSsWLE" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.6 3h-3.2v12.4a2.6 2.6 0 1 1-2.1-2.6V9.5a5.9 5.9 0 1 0 5.3 5.9V9.8a7.9 7.9 0 0 0 4.4 1.3V8a4.7 4.7 0 0 1-4.4-5Z"/></svg><span class="soc-label">TikTok</span></a>
+  </div>
+  <a class="btn btn-primary nav-cta" href="#join">انضم الآن</a>
+</aside>
 
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div class="tag-line">عشيرة Blood Strike الرسمية</div>
+    <h1>Xx<span class="x">X</span></h1>
+    <p class="sub">مش مجرد فريق — نظام قتالي واحد بعقلية واحدة. ننزل الساحة بتنظيم، نخطط بذكاء، ونفوز بأفضلية ساحقة.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#join">طريقة الانضمام</a>
+      <a class="btn btn-ghost" href="#roster">قائمة الاعضاء</a>
+    </div>
+    <div class="stat-strip">
+      <div><div class="n">+10</div><div class="l">عضو نشط</div></div>
+      <div><div class="n">2</div><div class="l">بطولة</div></div>
+      <div><div class="n">5</div><div class="l">البطولات الوديّة</div></div>
+      <div><div class="n">2026</div><div class="l">سنة التأسيس</div></div>
+    </div>
+  </div>
 </header>
 
+<section id="about">
+  <div class="wrap">
+    <div class="eyebrow">هويتنا</div>
+    <h2>الانضباط يصنع الفارق، وليس كثرة العدد.</h2>
+    <p class="lede">كلان XxX بُنيت على فكرة بسيطة: كل لاعب له دور، وكل جولة لها خطة. من التدريب اليومي للمباريات الرسمية، نلعب كوحدة واحد وليس افراد متفرقة.</p>
 
-
-<!-- =========================
-     STATS
-========================= -->
-
-<section>
-
-    <div class="section-title">
-
-        <small>
-            OUR NUMBERS
-        </small>
-
-        <h2>
-            XxX BY THE NUMBERS
-        </h2>
-
-        <p>
-            A team built around competition, teamwork and consistency.
-        </p>
-
+    <div class="about-grid">
+      <div>
+        <div class="pillars">
+          <div class="pillar reveal">
+            <h3>تنسيق تكتيكي</h3>
+            <p>تحليل خرائط، تقسيم أدوار، وتمارين تواصل داخل كل مباراة.</p>
+          </div>
+          <div class="pillar reveal">
+            <h3>تدريب مستمر</h3>
+            <p>جلسات تدريب أسبوعية مسجّلة ومراجعة الأداء بعد كل بطولة.</p>
+          </div>
+          <div class="pillar reveal">
+            <h3>مجتمع حقيقي</h3>
+            <p>ديسكورد نشط على مدار الساعة، وليس فقط وقت اللعب.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="pillars">
+          <div class="pillar reveal">
+            <h3>مستويات واضحة</h3>
+            <p>من مبتدئ لمحترف، كل عضو عنده مسار تطور واضح داخل الكلان .</p>
+          </div>
+          <div class="pillar reveal">
+            <h3>منافسة جادة</h3>
+            <p>نشارك في البطولات المحلية والإقليمية والسكريمات تحت راية XxX.</p>
+          </div>
+        </div>
+      </div>
     </div>
-
-
-    <div class="stats">
-
-        <div class="stat">
-
-            <h3>
-                05
-            </h3>
-
-            <p>
-                ACTIVE PLAYERS
-            </p>
-
-        </div>
-
-
-        <div class="stat">
-
-            <h3>
-                1+
-            </h3>
-
-            <p>
-                TOURNAMENTS
-            </p>
-
-        </div>
-
-
-        <div class="stat">
-
-            <h3>
-                0
-            </h3>
-
-            <p>
-                TROPHIES
-            </p>
-
-        </div>
-
-
-        <div class="stat">
-
-            <h3>
-                5+
-            </h3>
-
-            <p>
-                FRIENDLIES
-            </p>
-
-        </div>
-
-    </div>
-
+  </div>
 </section>
-
-
-
-<!-- =========================
-     ROSTER
-========================= -->
 
 <section id="roster">
-
-    <div class="section-title">
-
-        <small>
-            THE SQUAD
-        </small>
-
-        <h2>
-            MEET THE ROSTER
-        </h2>
-
-        <p>
-            Five players. One team. One goal.
-        </p>
-
-    </div>
-
-
+  <div class="wrap">
+    <div class="eyebrow">الـهـيـكـلـة الـعـامـة</div>
+    <h2>الاعضاء المنتسبين</h2>
     <div class="roster">
-
-
-        <!-- CAPTAIN -->
-
-        <div class="player">
-
-            <div class="player-image">
-
-                <div class="player-icon">
-                    CV
-                </div>
-
-            </div>
-
-
-            <div class="player-info">
-
-                <div class="player-label">
-                    PLAYER 01
-                </div>
-
-                <h3>
-                    XxX • CVaR
-                </h3>
-
-                <p>
-                    Team Captain
-                </p>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- PLAYER 02 -->
-
-        <div class="player">
-
-            <div class="player-image">
-
-                <div class="player-icon">
-                    AK
-                </div>
-
-            </div>
-
-
-            <div class="player-info">
-
-                <div class="player-label">
-                    PLAYER 02
-                </div>
-
-                <h3>
-                    XxX • Alkurdi15
-                </h3>
-
-                <p>
-                    XxX Team
-                </p>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- PLAYER 03 -->
-
-        <div class="player">
-
-            <div class="player-image">
-
-                <div class="player-icon">
-                    AM
-                </div>
-
-            </div>
-
-
-            <div class="player-info">
-
-                <div class="player-label">
-                    PLAYER 03
-                </div>
-
-                <h3>
-                    XxX • AM4
-                </h3>
-
-                <p>
-                    XxX Team
-                </p>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- PLAYER 04 -->
-
-        <div class="player">
-
-            <div class="player-image">
-
-                <div class="player-icon">
-                    SP
-                </div>
-
-            </div>
-
-
-            <div class="player-info">
-
-                <div class="player-label">
-                    PLAYER 04
-                </div>
-
-                <h3>
-                    XxX • Spinner7
-                </h3>
-
-                <p>
-                    XxX Team
-                </p>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- PLAYER 05 -->
-
-        <div class="player">
-
-            <div class="player-image">
-
-                <div class="player-icon">
-                    OM
-                </div>
-
-            </div>
-
-
-            <div class="player-info">
-
-                <div class="player-label">
-                    PLAYER 05
-                </div>
-
-                <h3>
-                    XxX • Only Me Left
-                </h3>
-
-                <p>
-                    XxX Team
-                </p>
-
-            </div>
-
-        </div>
-
-
+      <div class="r-row head">
+        <div>الـتـرتـيـب</div><div>اسـم الـلاعب</div><div>الـرتـبـة</div>
+      </div>
+      <div class="r-row reveal player-card" role="button" tabindex="0" aria-label="عرض معلومات اللاعب">
+        <div class="r-rank">01</div>
+        <div class="r-main"><div class="r-name">XxX • CVaR</div></div>
+        <div class="r-role">قـائـد الـكـلان</div>
+      </div>
+      <div class="r-row reveal player-card" role="button" tabindex="0" aria-label="عرض معلومات اللاعب">
+        <div class="r-rank">02</div>
+        <div class="r-main"><div class="r-name">XxX • SPINNER</div></div>
+        <div class="r-role">نـائـب الـكـلان</div>
+      </div>
+      <div class="r-row reveal player-card" role="button" tabindex="0" aria-label="عرض معلومات اللاعب">
+        <div class="r-rank">03</div>
+        <div class="r-main"><div class="r-name">XxX • Alkurdi15</div></div>
+        <div class="r-role">عـضـو كـلان</div>
+      </div>
+      <div class="r-row reveal player-card" role="button" tabindex="0" aria-label="عرض معلومات اللاعب">
+        <div class="r-rank">04</div>
+        <div class="r-main"><div class="r-name">XxX • Shwaht</div></div>
+        <div class="r-role">عـضـو كـلان</div>
+      </div>
+      <div class="r-row reveal player-card" role="button" tabindex="0" aria-label="عرض معلومات اللاعب">
+        <div class="r-rank">05</div>
+        <div class="r-main"><div class="r-name">XxX • ONLY ME LEFT</div></div>
+        <div class="r-role">عـضـو كـلان</div>
+      </div>
+      <a href="players.html" target="_blank" rel="noopener" class="r-row r-more reveal">
+        <span>عرض كل أعضاء الكلان</span><span class="s-chev">‹</span>
+      </a>
     </div>
-
+  </div>
 </section>
-
-
-
-<!-- =========================
-     ACHIEVEMENTS
-========================= -->
-
-<section id="achievements">
-
-    <div class="section-title">
-
-        <small>
-            OUR JOURNEY
-        </small>
-
-        <h2>
-            ACHIEVEMENTS
-        </h2>
-
-        <p>
-            The beginning of the XxX story.
-        </p>
-
-    </div>
-
-
-    <div class="achievements">
-
-
-        <div class="achievement">
-
-            <div class="achievement-number">
-                We here from [ 15 / 09 / 2026 ]
-            </div>
-
-            <h3>
-                XxX TEAM CREATED
-            </h3>
-
-            <p>
-              The Dream start from here and flow up to sky and we still fighting to be the champ !
-            </p>
-
-        </div>
-
-
-        <div class="achievement">
-
-            <div class="achievement-number">
-                First Tournament was [11/10/2026]
-            </div>
-
-            <h3>
-                Max Strikers League S1.5
-            </h3>
-
-            <p>
-                Our first step into the competitive scene
-            </p>
-
-        </div>
-
-
-        <div class="achievement">
-
-            <div class="achievement-number">
-                THE NEXT CHAPTER !
-            </div>
-
-            <h3>
-                RISE. COMPETE. CONQUER.
-            </h3>
-
-            <p>
-               Every match brings us closer.
-            </p>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================
-     ABOUT
-========================= -->
-
-<section id="about">
-
-    <div class="about">
-
-
-        <div>
-
-            <div class="section-title">
-
-                <small>
-                    WHO WE ARE
-                </small>
-
-                <h2>
-                    MORE THAN<br>
-                    JUST A TEAM.
-                </h2>
-
-            </div>
-
-
-            <p>
-
-                XxX is a Blood Strike esports team focused on competitive
-                gameplay, teamwork and continuous improvement.
-                We believe that every match is an opportunity to become better.
-
-            </p>
-
-        </div>
-
-
-        <div class="about-box">
-
-            <div class="quote">
-
-                PLAY TO WIN  !<br>
-
-                <span>
-                   SMASH THE GAME
-                </span>
-
-                <br>
-
-                OWN THE MOMENT
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================
-     JOIN
-========================= -->
 
 <section class="join" id="join">
-
-    <h2>
-        READY TO JOIN XxX?
-    </h2>
-
-
-    <p>
-
-        Think you have what it takes?
-        If you wants to join our team contact us in discord to make a test for you.
-
-    </p>
-
-
-    <div class="buttons">
-
-        <a href="https://discord.gg/NZEkrBVVG2" class="btn btn-dark">
-            DISCORD
-        </a>
-
-        <a href="https://www.youtube.com/@CVaR7" class="btn btn-red">
-            YOUTUBE
-        </a>
-
+  <div class="wrap">
+    <div class="eyebrow">خطوة بسيطة</div>
+    <h2>جاهز تلعب تحت راية XxX؟</h2>
+    <p class="lede">باب التسجيل للكلان مفتوح. المطلوب فقط جدية والتزام بالتدريب والمشاركة بالبطولات والتفاعل الاسبوعي</p>
+    <a class="btn btn-primary" href="https://discord.gg/F6nJGFBsV6">قـدّم طلب، وأنـضـم الأن</a>
+    <div class="join-steps">
+      <div class="reveal"><div class="eyebrow">الـخـطـوة الأولـى</div><p> ان يكون لديك خبرة كافية وتدخل على خادم الديسكورد الخاص بنا</p></div>
+      <div class="reveal"><div class="eyebrow">الـخـطـوة الـثـانـيـة</div><p>تقرأ القوانين كافة وتفتح تذكرة التسجيل للكلان</p></div>
+      <div class="reveal"><div class="eyebrow">الـخـطـوة الـثـالـثـة</div><p>تجتاز تجربة أداء قصيرة مع أحد المدربين </p></div>
     </div>
-
+  </div>
 </section>
 
 
-
-<!-- =========================
-     FOOTER
-========================= -->
+<!-- نافذة معلومات اللاعب: تظهر فوق الصفحة بدون الانتقال إلى صفحة أخرى -->
+<div class="player-modal" id="playerModal" aria-hidden="true">
+  <div class="player-modal-box" role="dialog" aria-modal="true" aria-labelledby="playerModalName">
+    <button class="player-modal-close" id="playerModalClose" type="button" aria-label="إغلاق">×</button>
+    <div class="player-modal-kicker">XXX CLAN • PLAYER CARD</div>
+    <div class="player-avatar" id="playerModalAvatar">X</div>
+    <div class="player-modal-name" id="playerModalName">اسم اللاعب</div>
+    <div class="player-modal-role" id="playerModalRole">عضو كلان</div>
+    <div class="player-modal-info" id="playerModalInfo"></div>
+    <div class="player-modal-hint">اضغط × أو خارج النافذة للإغلاق</div>
+  </div>
+</div>
 
 <footer>
-
-    <div>
-        © 2026 XxX Team. All Rights Reserved.
+  <div class="wrap">
+    <div class="f-logo"><span>XxX</span> Clan</div>
+    <div class="social-icons">
+      <a href="https://discord.gg/F6nJGFBsV6" aria-label="Discord"><svg viewBox="0 0 24 24"><path d="M20.3 4.4A19 19 0 0 0 15.7 3l-.3.6a14 14 0 0 1 4 1.7 16 16 0 0 0-13.8 0A14 14 0 0 1 9.6 3l-.3-.6a19 19 0 0 0-4.6 1.4C2 8.7 1.3 12.9 1.6 17a19 19 0 0 0 5.7 2.9l.9-1.5a12 12 0 0 1-1.9-.9l.5-.4a13.5 13.5 0 0 0 11.4 0l.5.4a12 12 0 0 1-1.9.9l.9 1.5A19 19 0 0 0 22.4 17c.4-4.8-.8-9-2.1-12.6ZM8.7 14.3c-.8 0-1.5-.8-1.5-1.7 0-1 .7-1.7 1.5-1.7.9 0 1.6.8 1.5 1.7 0 .9-.6 1.7-1.5 1.7Zm6.6 0c-.8 0-1.5-.8-1.5-1.7 0-1 .7-1.7 1.5-1.7.9 0 1.6.8 1.5 1.7 0 .9-.6 1.7-1.5 1.7Z"/></svg></a>
+      <a href="https://www.youtube.com/@CVaR2" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23 12s0-3.6-.5-5.3a2.9 2.9 0 0 0-2-2C18.9 4.2 12 4.2 12 4.2s-6.9 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.4 1 12 1 12s0 3.6.5 5.3a2.9 2.9 0 0 0 2 2c1.6.5 8.5.5 8.5.5s6.9 0 8.5-.5a2.9 2.9 0 0 0 2-2c.5-1.7.5-5.3.5-5.3ZM9.8 15.5V8.5l6 3.5-6 3.5Z"/></svg></a>
+      <a href="https://www.tiktok.com/@47864hh?_r=1&_t=ZS-9Ad9rRSsWLE" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.6 3h-3.2v12.4a2.6 2.6 0 1 1-2.1-2.6V9.5a5.9 5.9 0 1 0 5.3 5.9V9.8a7.9 7.9 0 0 0 4.4 1.3V8a4.7 4.7 0 0 1-4.4-5Z"/></svg></a>
     </div>
-
-
-    <div class="socials">
-
-        <a href="https://discord.gg/NZEkrBVVG2">
-            Discord
-        </a>
-
-        <a href="#">
-            TikTok
-        </a>
-
-        <a href="https://www.youtube.com/@CVaR7">
-            YouTube
-        </a>
-
-    </div>
-
+  </div>
 </footer>
 
-
-
 <script>
+(function(){
+  var burger=document.getElementById('burger');
+  var sidebar=document.getElementById('sidebar');
+  var overlay=document.getElementById('sideOverlay');
+  var closeBtn=document.getElementById('sidebarClose');
 
-/* =========================
-   MOBILE MENU
-========================= */
+  function openMenu(){
+    sidebar.classList.add('open');
+    overlay.classList.add('show');
+    burger.classList.add('open');
+    burger.setAttribute('aria-expanded','true');
+  }
+  function closeMenu(){
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+    burger.classList.remove('open');
+    burger.setAttribute('aria-expanded','false');
+  }
 
-function toggleMenu(){
+  burger.addEventListener('click', function(){
+    sidebar.classList.contains('open') ? closeMenu() : openMenu();
+  });
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
+  sidebar.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', closeMenu);
+  });
 
-    const menu =
-    document.getElementById("navLinks");
-
-    menu.classList.toggle("active");
-
-}
-
-
-/* =========================
-   CLOSE MENU
-========================= */
-
-document
-.querySelectorAll(".nav-links a")
-.forEach(link => {
-
-    link.addEventListener("click", () => {
-
-        document
-        .getElementById("navLinks")
-        .classList
-        .remove("active");
-
-    });
-
-});
+  var revealEls = document.querySelectorAll('.reveal');
+  revealEls.forEach(function(el, i){ el.style.transitionDelay = (i % 6) * 70 + 'ms'; });
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+      });
+    },{threshold:.15});
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in'); });
+  }
 
 
-/* =========================
-   NAVBAR SCROLL
-========================= */
+  // نافذة معلومات اللاعب — بيانات مستقلة لكل لاعب
+  // عدّل بيانات كل لاعب هنا فقط. image يقبل رابط صورة مباشر، واتركه فارغًا لاستخدام الأحرف الأولى.
+  var PLAYER_PROFILES = {
+  "XxX • CVaR": {
+    "id": "568834303025",
+    "rank": "Two Years",
+    "level": "50",
+    "weapon": "URB / PKM",
+    "bio": "Squad Fight",
+    "Nation" : "Jordan",
+    "image": "images/max.png"
+  },
+  "XxX • SPINNER": {
+    "id": "568840157511",
+    "rank": "Three Years",
+    "level": "50",
+    "weapon": "Ak47 / HK416",
+    "bio": "Squad Fight",
+    "Nation" : "Jordan",
+    "image": "images/spinner7.png"
+  },
+  "XxX • Alkurdi15": {
+    "id": "570980232064",
+    "rank": "Two Years",
+    "level": "50",
+    "weapon": "Inp-9 / M700",
+    "bio": "Battel Royal",
+    "Nation" : "Russia",
+    "image": "images/only-one.png"
+  },
+  "XxX • Shwaht": {
+    "id": "568845250570",
+    "rank": "One Year",
+    "level": "50",
+    "weapon": "AK47",
+    "bio": "Battel Royal",
+    "Nation" : "Egypt",
+    "image": "images/am4.png"
+  },
+  "XxX • ONLY ME LEFT": {
+    "id": "568846192459",
+    "rank": "Two Year",
+    "level": "50",
+    "weapon": "UMP45",
+    "bio": "Weapon Master",
+    "Nation" : "Algeria",
+    "image": "images/only-me-left.png"
+  },
+  "XxX • Dark": {
+    "id": "غير مضاف",
+    "rank": "غير مضاف",
+    "level": "غير مضاف",
+    "weapon": "غير مضاف",
+    "bio": "اكتب نبذة عن اللاعب هنا",
+    "Nation" : "Jordan",
+    "image": ""
+  },
+  "XxX • max-try7": {
+    "id": "غير مضاف",
+    "rank": "غير مضاف",
+    "level": "غير مضاف",
+    "weapon": "غيمضاف",
+    "bio": "اكتب نبذة عن اللاعب هنا",
+    "Nation" : "Jordan / UAE",
+    "image": ""
+  },
+  "XxX • Monster": {
+    "id": "غير مضاف",
+    "rank": "غير مضاف",
+    "level": "غير مض",
+    "weapon": "غير مضاف",
+    "bio": "اكتب نبذة عن اللاعب هنا",
+    "Nation" : "Jordan",
+    "image": ""
+  }
+};
+  var playerModal = document.getElementById('playerModal');
+  var playerModalClose = document.getElementById('playerModalClose');
+  var playerModalName = document.getElementById('playerModalName');
+  var playerModalRole = document.getElementById('playerModalRole');
+  var playerModalAvatar = document.getElementById('playerModalAvatar');
+  var playerModalInfo = document.getElementById('playerModalInfo');
 
-window.addEventListener(
-    "scroll",
-    function(){
-
-        const nav =
-        document.querySelector("nav");
-
-        if(window.scrollY > 50){
-
-            nav.style.background =
-            "rgba(3,3,3,.96)";
-
-        }else{
-
-            nav.style.background =
-            "rgba(5,5,5,.82)";
-
-        }
-
+  function addInfoRow(label, value){
+    var row = document.createElement('div');
+    var key = document.createElement('span'); key.textContent = label;
+    var val = document.createElement('span'); val.textContent = value || 'غير مضاف';
+    row.appendChild(key); row.appendChild(val); playerModalInfo.appendChild(row);
+  }
+  function openPlayerCard(card){
+    var nameEl = card.querySelector('.r-name');
+    var roleEl = card.querySelector('.r-role');
+    if(!nameEl || !playerModal) return;
+    var playerName = nameEl.textContent.trim();
+    var playerRole = roleEl ? roleEl.textContent.trim() : 'عضو كلان';
+    var profile = PLAYER_PROFILES[playerName] || {};
+    playerModalName.textContent = playerName;
+    playerModalRole.textContent = playerRole;
+    playerModalAvatar.textContent = '';
+    if(profile.image){
+      var photo = document.createElement('img'); photo.src = profile.image; photo.alt = 'صورة ' + playerName;
+      photo.onerror = function(){ playerModalAvatar.textContent = playerName.replace(/^XxX\s*•\s*/i,'').trim().slice(0,2).toUpperCase(); };
+      playerModalAvatar.appendChild(photo);
+    } else {
+      playerModalAvatar.textContent = playerName.replace(/^XxX\s*•\s*/i,'').trim().slice(0,2).toUpperCase();
     }
-);
+    playerModalInfo.innerHTML = '';
+    addInfoRow('Player ID', profile.id);
+    addInfoRow('يلعب منذ', profile.rank);
+    addInfoRow('المستوى', profile.level);
+    addInfoRow('السلاح المفضل', profile.weapon);
+    addInfoRow('طور اللعب المفضل', profile.bio);
+    addInfoRow('جنسية اللاعب', profile.Nation);
+    addInfoRow('اللعبة', 'Blood Strike');
+    playerModal.classList.add('show');
+    playerModal.setAttribute('aria-hidden','false');
+    document.body.classList.add('modal-open');
+    playerModalClose.focus();
+  }
+  function closePlayerCard(){
+    if(!playerModal) return;
+    playerModal.classList.remove('show');
+    playerModal.setAttribute('aria-hidden','true');
+    document.body.classList.remove('modal-open');
+  }
+  document.querySelectorAll('.player-card').forEach(function(card){
+    card.addEventListener('click', function(){ openPlayerCard(card); });
+    card.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openPlayerCard(card); }
+    });
+  });
+  if(playerModalClose) playerModalClose.addEventListener('click', closePlayerCard);
+  if(playerModal) playerModal.addEventListener('click', function(e){ if(e.target === playerModal) closePlayerCard(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closePlayerCard(); });
 
+  var navEl = document.querySelector('nav');
+  window.addEventListener('scroll', function(){
+    navEl.classList.toggle('scrolled', window.scrollY > 10);
+  }, {passive:true});
+
+  document.querySelectorAll('.btn-primary, .nav-cta').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      var rect = btn.getBoundingClientRect();
+      var size = Math.max(rect.width, rect.height) * 1.2;
+      var ripple = document.createElement('span');
+      ripple.className = 'ripple';
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+      ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+      btn.appendChild(ripple);
+      setTimeout(function(){ ripple.remove(); }, 650);
+    });
+  });
+
+  document.querySelectorAll('.stat-strip .n').forEach(function(el){
+    var raw = el.textContent.trim();
+    var match = raw.match(/[\d.]+/);
+    if(!match) return;
+    var target = parseFloat(match[0]);
+    var prefix = raw.slice(0, match.index);
+    var suffix = raw.slice(match.index + match[0].length);
+    var decimals = match[0].indexOf('.') > -1 ? 1 : 0;
+    var start = null, duration = 1200;
+    function step(ts){
+      if(!start) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = prefix + (target * eased).toFixed(decimals) + suffix;
+      if(progress < 1) requestAnimationFrame(step);
+    }
+    setTimeout(function(){ requestAnimationFrame(step); }, 650);
+  });
+})();
 </script>
-
 
 </body>
 </html>
