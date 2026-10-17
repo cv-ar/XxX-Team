@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>XxX | جميع أعضاء الكلان</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0a;--panel:#160f0e;--red:#c81d25;--bright:#e9212b;--line:#2a1414;--text:#f2eceb;--muted:#8c7a79}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;line-height:1.7}
+header{padding:28px 18px;text-align:center;border-bottom:1px solid var(--line);background:radial-gradient(ellipse at top,rgba(200,29,37,.25),transparent 70%)}
+.logo{font-size:34px;font-weight:900;letter-spacing:2px}.logo span{color:var(--bright)}
+header p{color:var(--muted);margin-top:4px}
+main{max-width:850px;margin:auto;padding:35px 20px 70px}
+.eyebrow{color:var(--bright);font-weight:700}
+h1{font-size:clamp(27px,6vw,40px);margin:4px 0 10px}
+.intro{color:var(--muted);margin-bottom:25px}
+.roster{display:flex;flex-direction:column;gap:12px}
+.player{display:grid;grid-template-columns:48px 1fr auto;gap:14px;align-items:center;padding:17px;background:var(--panel);border:1px solid var(--line);border-radius:7px}
+.rank{width:38px;height:38px;border:1px solid var(--red);border-radius:50%;display:grid;place-items:center;color:var(--bright);font-weight:900}
+.name{font-size:17px;font-weight:900}
+.role{font-size:13px;color:var(--muted)}
+.kd{font-weight:900;font-size:15px}
+.back{display:inline-block;margin-top:28px;padding:11px 22px;background:var(--red);color:white;text-decoration:none;border-radius:4px;font-weight:700}
+footer{text-align:center;padding:24px;border-top:1px solid var(--line);color:var(--muted)}
+@media(max-width:420px){.player{grid-template-columns:40px 1fr auto;gap:10px;padding:13px}.name{font-size:15px}.kd{font-size:13px}}
+
+/* ===== PLAYER PROFILE POPUP ===== */
+.player{cursor:pointer;transition:border-color .2s,transform .2s}
+.player:hover{border-color:var(--red)}
+.player:focus-visible{outline:2px solid var(--bright);outline-offset:3px}
+.player-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.8);backdrop-filter:blur(7px);opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s}
+.player-modal.show{opacity:1;visibility:visible}
+.player-modal-box{position:relative;width:min(100%,390px);padding:25px 22px 22px;background:linear-gradient(160deg,#1c1010,#0b0b0b 75%);border:1px solid var(--red);border-radius:12px;box-shadow:0 18px 70px rgba(0,0,0,.65),0 0 28px rgba(200,29,37,.12);transform:translateY(12px) scale(.98);transition:transform .22s}
+.player-modal.show .player-modal-box{transform:translateY(0) scale(1)}
+.player-modal-close{position:absolute;top:10px;left:12px;width:34px;height:34px;border:1px solid var(--line);border-radius:50%;background:#160f0e;color:#fff;font-size:23px;line-height:1;cursor:pointer}
+.player-modal-kicker{text-align:center;color:var(--bright);font-size:11px;font-weight:900;letter-spacing:3px;margin:2px 0 18px}
+.player-avatar{width:88px;height:88px;margin:0 auto 12px;overflow:hidden;border:2px solid var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 25%,#442020,#160d0d 70%);color:#fff;font-size:28px;font-weight:900;box-shadow:0 0 24px rgba(200,29,37,.16)}
+.player-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.player-modal-name{text-align:center;color:#fff;font-size:22px;font-weight:900;overflow-wrap:anywhere}
+.player-modal-role{text-align:center;color:var(--bright);font-size:13px;margin-top:3px}
+.player-modal-info{margin-top:22px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.player-modal-info div{display:flex;justify-content:space-between;gap:14px;padding:11px 13px;background:rgba(255,255,255,.015);font-size:13px}
+.player-modal-info div+div{border-top:1px solid var(--line)}
+.player-modal-info span:first-child{color:var(--muted)}
+.player-modal-info span:last-child{color:var(--text);font-weight:700;text-align:left}
+.player-modal-hint{text-align:center;color:var(--muted);font-size:11px;margin-top:14px}
+body.modal-open{overflow:hidden}
+@media(max-width:420px){.player-modal-box{padding:23px 17px 18px}.player-modal-name{font-size:20px}}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">XxX<span></span></div>
+  <p>القائمة الكاملة لأعضاء الكلان</p>
+</header>
+<main>
+  <div class="eyebrow">XxX CLAN • ROSTER</div>
+  <h1>قـائـمـة أعـضـاء الـكـلان</h1>
+  <p class="intro">أعضاء كلان  XxX في Blood Strike</p>
+  <div class="roster">
+    <div class="player player-card" role="button" tabindex="0" aria-label="عرض معلومات اللاعب"><div class="rank">01</div><div><div class="name">XxX • CVaR</div></div><div class="role">قـائـد الـكـلان</div></div>
+    <div class="player player-card" role="button" tabindex="0" aria-label="عرض معلومات اللاعب"><div class="rank">02</div><div><div class="name">XxX • SPINNER</div></div><div class="role">نـائـب الـقـائـد</div></div>
+    <div class="player player-card" role="button" tabindex="0" aria-label="عرض معلومات اللاعب"><div class="rank">03</div><div><div class="name">XxX • Alkurdi15</div></div><div class="role">عـضـو كـلان</div></div>
+    <div class="player player-card" role="button" tabindex="0" aria-label="عرض معلومات اللاعب"><div class="rank">04</div><div><div class="name">XxX • Shwaht</div></div><div class="role">عـضـو كـلان</div></div>
+    <div class="player player-card" role="button" tabindex="0" aria-label="عرض معلومات اللاعب"><div class="rank">05</div><div><div class="name">XxX • ONLY ME LEFT</div></div><div class="role">عـضـو كـلان</div></div>
+     <div class="player player-card" role="button" tabindex="0" aria-label="عرض معلومات اللاعب"><div class="rank">06</div><div><div class="name">XxX • Dark</div></div><div class="role">عـضـو كـلان</div></div>
+    <div class="player player-card" role="button" tabindex="0" aria-label="عرض معلومات اللاعب"><div class="rank">07</div><div><div class="name">XxX • max-try7</div></div><div class="role">عـضـو كـلان</div></div>
+    <div class="player player-card" role="button" tabindex="0" aria-label="عرض معلومات اللاعب"><div class="rank">08</div><div><div class="name">XxX • Monster</div></div><div class="role">عـضـو كـلان</div></div>
+    
+  </div>
+
+<!-- نافذة معلومات اللاعب، تظهر في نفس الصفحة -->
+<div class="player-modal" id="playerModal" aria-hidden="true">
+  <div class="player-modal-box" role="dialog" aria-modal="true" aria-labelledby="playerModalName">
+    <button class="player-modal-close" id="playerModalClose" type="button" aria-label="إغلاق">×</button>
+    <div class="player-modal-kicker">XXX CLAN • PLAYER CARD</div>
+    <div class="player-avatar" id="playerModalAvatar">X</div>
+    <div class="player-modal-name" id="playerModalName">اسم اللاعب</div>
+    <div class="player-modal-role" id="playerModalRole">عضو كلان</div>
+    <div class="player-modal-info" id="playerModalInfo"></div>
+    <div class="player-modal-hint">اضغط × أو خارج النافذة للإغلاق</div>
+  </div>
+</div>
+
+  <a class="back" href="index.html">العودة إلى الصفحة الرئيسية</a>
+</main>
+<footer>XxX Clan · Blood Strike</footer>
+
+<script>
+(function(){
+  // عدّل بيانات كل لاعب هنا فقط. image يقبل رابط صورة مباشر، واتركه فارغًا لاستخدام الأحرف الأولى.
+  var PLAYER_PROFILES = {
+  "XxX • CVaR": {
+    "id": " 568834303025",
+    "rank": "Two Years  ",
+    "level": "50",
+    "weapon": "URB / PKM ",
+    "bio": "Squad Fight",
+    "Nation" : "Jordan",
+    "image": "images/max.webp"
+  },
+  "XxX • SPINNER": {
+    "id": "568840157511",
+    "rank": "Three Years",
+    "level": "50",
+    "weapon": "Ak47 / HK416",
+    "bio": "Squad Fhight",
+    "Nation" : "Jordan",
+    "image": "images/spinner7.webp"
+  },
+  "XxX • Alkurdi15": {
+    "id": "570980232064",
+    "rank": "Two Years",
+    "level": "50",
+    "weapon": "Inp-9 / M700",
+    "bio": "Battel Royal",
+    "Nation" : "Russia",
+    "image": "images/only-one.webp"
+  },
+  "XxX • Shwaht": {
+    "id": "568845250570",
+    "rank": "One Year",
+    "level": "50",
+    "weapon": "AK47",
+    "bio": "Battel Royal",
+    "Nation" : "Egypt",
+    "image": "images/am4.webp"
+  },
+  "XxX • ONLY ME LEFT": {
+    "id": "568846192459",
+    "rank": "Two Years",
+    "level": "50",
+    "weapon": "UMP45",
+    "bio": "Weapon Master",
+    "Nation" : "Algeria",
+    "image": "images/only-me-left.webp"
+  },
+  "XxX • Dark": {
+    "id": "568834966699",
+    "rank": "One Year",
+    "level": "48",
+    "weapon": "inp_9 / QBZ ",
+    "bio": "Squad Fight",
+    "Nation" : "Palestine",
+    "image": "images/alkurdi15.webp"
+  },
+  "XxX • max-try7": {
+    "id": "570989410750",
+    "rank": "Two Years",
+    "level": "50",
+    "weapon": "MP7",
+    "bio": "Battel Royal",
+    "Nation" : "Jordan / UAE",
+    "image": "images/cvar.webp"
+  },
+  "XxX • Monster": {
+    "id": "Banned",
+    "rank": "6 Months",
+    "level": "37",
+    "weapon": "MP5 / M700",
+    "bio": "Hot Zone",
+    "Nation" : "Jordan",
+    "image": "images/xxx.webp"
+  }
+};
+  var modal = document.getElementById('playerModal');
+  var closeBtn = document.getElementById('playerModalClose');
+  var modalName = document.getElementById('playerModalName');
+  var modalRole = document.getElementById('playerModalRole');
+  var avatar = document.getElementById('playerModalAvatar');
+  var info = document.getElementById('playerModalInfo');
+
+  function addInfoRow(label, value){
+    var row = document.createElement('div');
+    var key = document.createElement('span'); key.textContent = label;
+    var val = document.createElement('span'); val.textContent = value || 'غير مضاف';
+    row.appendChild(key); row.appendChild(val); info.appendChild(row);
+  }
+  function openCard(card){
+    var name = card.querySelector('.name');
+    var role = card.querySelector('.role');
+    if(!name) return;
+    var fullName = name.textContent.trim();
+    var profile = PLAYER_PROFILES[fullName] || {};
+    modalName.textContent = fullName;
+    modalRole.textContent = role ? role.textContent.trim() : 'عضو كلان';
+    avatar.textContent = '';
+    if(profile.image){
+      var photo = document.createElement('img'); photo.src = profile.image; photo.alt = 'صورة ' + fullName;
+      photo.onerror = function(){ avatar.textContent = fullName.replace(/^XxX\s*•\s*/i,'').trim().slice(0,2).toUpperCase(); };
+      avatar.appendChild(photo);
+    } else {
+      avatar.textContent = fullName.replace(/^XxX\s*•\s*/i,'').trim().slice(0,2).toUpperCase();
+    }
+    info.innerHTML = '';
+    addInfoRow('Player ID', profile.id);
+    addInfoRow('يلعب منذ', profile.rank);
+    addInfoRow('المستوى', profile.level);
+    addInfoRow('السلاح المفضل', profile.weapon);
+    addInfoRow('الطور المفضل', profile.bio);
+    addInfoRow('جنسية اللاعب', profile.Nation);
+    addInfoRow('اللعبة', 'Blood Strike');
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden','false');
+    document.body.classList.add('modal-open');
+    closeBtn.focus();
+  }
+  function closeCard(){
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden','true');
+    document.body.classList.remove('modal-open');
+  }
+  document.querySelectorAll('.player-card').forEach(function(card){
+    card.addEventListener('click',function(){openCard(card);});
+    card.addEventListener('keydown',function(e){
+      if(e.key === 'Enter' || e.key === ' '){e.preventDefault();openCard(card);}
+    });
+  });
+  closeBtn.addEventListener('click',closeCard);
+  modal.addEventListener('click',function(e){if(e.target === modal) closeCard();});
+  document.addEventListener('keydown',function(e){if(e.key === 'Escape') closeCard();});
+})();
+</script>
+
+</body>
+  </html>
